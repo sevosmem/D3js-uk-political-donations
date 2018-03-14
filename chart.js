@@ -21,7 +21,7 @@ var entityCentres = {
 		individual: {x: w / 3.65, y: h / 3.3},
 	};
 
-var fill = d3.scale.ordinal().range(["#F02233", "#087FBD", "#FDBB30"]);
+var fill = d3.scale.ordinal().range(["#2F1B44", "#892C41", "#E8D124"]);
 
 var svgCentre = { 
     x: w / 3.6, y: h / 2
@@ -92,7 +92,8 @@ function start() {
 		.attr("r", 0)
 		.style("fill", function(d) { return fill(d.party); })
 		.on("mouseover", mouseover)
-		.on("mouseout", mouseout);
+		.on("mouseout", mouseout)
+        .on("click", google);
 		// Alternative title based 'tooltips'
 		// node.append("title")
 		//	.text(function(d) { return d.donor; });
@@ -171,7 +172,6 @@ function all(e) {
 		node.attr("cx", function(d) { return d.x; })
 			.attr("cy", function(d) {return d.y; });
 }
-
 
 function moveToCentre(alpha) {
 	return function(d) {
@@ -307,6 +307,11 @@ function display(data) {
 	return start();
 }
 
+function google(d, i) {
+    var q = d.donor;
+    window.open('http://google.com/search?q='+q);
+}
+
 function mouseover(d, i) {
 	// tooltip popup
 	var mosie = d3.select(this);
@@ -315,7 +320,11 @@ function mouseover(d, i) {
 	var party = d.partyLabel;
 	var entity = d.entityLabel;
 	var offset = $("svg").offset();
-	
+	var msg = new SpeechSynthesisUtterance(d.donor);
+    window.speechSynthesis.speak(msg);
+    var msg1 = new SpeechSynthesisUtterance(d.value);
+    window.speechSynthesis.speak(msg1);
+
 
 
 	// image url that want to check
@@ -356,15 +365,25 @@ function mouseout() {
 
 		d3.select(".tooltip")
 			.style("display", "none");
+        
+        window.speechSynthesis.cancel();
 		}
 
 $(document).ready(function() {
 		d3.selectAll(".switch").on("click", function(d) {
       var id = d3.select(this).attr("id");
+            var sound = document.getElementById("clicksound");
+            sound.play();
       return transition(id);
     });
     return d3.csv("data/7500up.csv", display);
+    
+    
+     
 
 });
+
+
+
 
 

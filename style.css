@@ -63,15 +63,15 @@ li {
 /*  Party view */
 #conservative, #labour, #libdem { padding: 10px; }
 #conservative {
-    background: rgba(8, 127, 189, 0.2);
+    background: rgba(102, 0, 0, 0.5);
     top: 110px;
 }
 #labour {
-    background: rgba(240, 34, 51, 0.2);
+    background: rgba(153, 51, 255, 0.6);
     top: 330px;
 }
 #libdem {
-    background: rgba(253, 187, 48, 0.2);
+    background: rgba(255, 255, 102, 0.8);
     top: 550px;
 }
 
@@ -232,7 +232,16 @@ https://github.com/yui/pure/blob/master/LICENSE.md
 .pure-button:focus {
     outline: 0;
 }
+
 .pure-button-active, .pure-button:active {
     color: rgb(0, 120, 231);
     color: #fff
+}
+
+
+
+.scaled:hover{
+  transform: scale(1.4);
+    transition: transform 0.5s ease;
+    background-color: pink;
 }
